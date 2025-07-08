@@ -1,7 +1,7 @@
 import Navbar from "../Navbar"
 import { useRouter } from "next/router"
 
-const disabledNavbar = ["/auth/login", "/auth/register"];
+const disabledNavbar = ["/auth/login", "/auth/register", "/404", "/500", "/"];
 
 type AppShellProps = {
   children: React.ReactNode
