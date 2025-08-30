@@ -1,0 +1,68 @@
+.product {
+  width: 100%;
+  padding: 0 5%;
+  &__title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  &__content {
+    display: flex;
+    &__skeleton {
+      width: 25%;
+      padding: 10px;
+      animation: skeleton 2s ease-in-out infinite;
+      &__image {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background-color: gray;
+      }
+      &__name {
+        width: 100%;
+        height: 20px;
+        margin-top: 5px;
+        background-color: gray;
+      }
+      &__category {
+        width: 100%;
+        height: 15px;
+        margin-top: 5px;
+        background-color: gray;
+      }
+      &__price {
+        width: 100%;
+        height: 15px;
+        margin-top: 10px;
+        background-color: gray;
+      }
+    }
+    &__item {
+      width: 25%;
+      padding: 10px;
+      &__name {
+        margin-top: 5px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      &__category {
+        color: gray;
+      }
+      &__price {
+        margin-top: 10px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+@keyframes skeleton {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
