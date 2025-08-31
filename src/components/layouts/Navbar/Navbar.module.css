@@ -6,4 +6,15 @@
   padding: 0 5%;
   background-color: #000;
   color: #fff;
+  justify-content: space-between;
+}
+
+.button {
+  background-color: #fff;
+  color: #000;
+  font-size: 14px;
+  margin-left: 5px;
+  padding: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
 }
