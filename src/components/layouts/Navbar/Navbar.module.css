@@ -9,6 +9,18 @@
   justify-content: space-between;
 }
 
+.profile {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 .button {
   background-color: #fff;
   color: #000;

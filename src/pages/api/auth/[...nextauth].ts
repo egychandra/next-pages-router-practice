@@ -1,6 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { signIn } from "@/lib/firebase/service";
+import GoogleProvider from "next-auth/providers/google";
+import { signIn, signInWithGoogle } from "@/lib/firebase/service";
 import bcrypt from "bcryptjs";
 
 const authOptions: NextAuthOptions = {
@@ -36,7 +37,11 @@ const authOptions: NextAuthOptions = {
           return null;
         }
       }
-    })
+    }),
+    GoogleProvider({
+    clientId: process.env.GOOGLE_OAUTH_CLIEND_ID || "",
+    clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET || "",
+  })
   ],
   callbacks: {
     async jwt({ token, user, account, profile }: any) {
@@ -45,16 +50,39 @@ const authOptions: NextAuthOptions = {
         // token.fullname = user.fullname;
         token.role = user.role;
       }
+
+      if (account?.provider === "google") {
+        const data = {
+          fullname: user.name,
+          email: user.email,
+          image: user.image,
+          type: "google"
+        };
+
+        await signInWithGoogle(data, (result: { status: boolean; message: string; data: any }) => {
+          if (result.status) {
+            token.fullname = result.data.fullname;
+            token.email = result.data.email;
+            token.image = result.data.image;
+            token.type = result.data.type;
+            token.role = result.data.role;
+          }
+        })
+      }
+
       return token;
     },
 
-    async session({ session, user, token }: any) {
+    async session({ session, token, user }: any) {
       if("email" in token) {
         session.user.email = token.email;
       }
-      // if("fullname" in token) {
-      //   session.user.fullname = token.fullname;
-      // }
+      if("fullname" in token) {
+        session.user.fullname = token.fullname;
+      }
+      if("image" in token) {
+        session.user.image = token.image;
+      }
       if("role" in token) {
         session.user.role = token.role;
       }
