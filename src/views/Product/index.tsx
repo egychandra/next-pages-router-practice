@@ -8,7 +8,7 @@ const ProductView = ({ products } : { products: productType[] }) => {
     <div className={styles.product}>
       <h1 className={styles.product__title}>Product</h1>
       <div className={styles.product__content}>
-        {products.length > 0 ? (
+        {products?.length > 0 ? (
           <>
             {products.map((item: productType) => (
               <Link href={`/product/${item.id}`} key={item.id} className={styles.product__content__item}>
